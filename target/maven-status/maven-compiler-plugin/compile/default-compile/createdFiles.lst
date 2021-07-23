@@ -1,0 +1,5 @@
+org\sanidadmadrid\cloud\restful\controllers\ClientController.class
+org\sanidadmadrid\cloud\restful\controllers\HolaMundoController.class
+org\sanidadmadrid\cloud\restful\boot\RestfulBootApplication.class
+org\sanidadmadrid\cloud\restful\config\PropertyConfiguration.class
+org\sanidadmadrid\cloud\restful\data\Employee.class
