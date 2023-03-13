@@ -1,7 +1,7 @@
 package org.sanidadmadrid.cloud.restful.data;
 
-
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public  class Employee {
 	  private  Long id;
@@ -10,10 +10,16 @@ public  class Employee {
 
 	  public Employee() {}
 
-	  Employee(String name, String role) {
+	  @JsonCreator
+	 public Employee (@JsonProperty("id") Long id,
+			  @JsonProperty("name") String name, 
+			  @JsonProperty("role") String role) {
 	    this.name = name;
 	    this.role = role;
+	    this.id = id;
 	  }
+	  
+
 
 	public Long getId() {
 		return id;
@@ -39,6 +45,13 @@ public  class Employee {
 		this.role = role;
 	}
 
+	
+	public String toString() {
+		
+		return String.format("Employee: {%s,%s,%s}", id,name,role);	
+		
+	}
+	
 	  
 	  
 
