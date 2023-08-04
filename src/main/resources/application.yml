@@ -1,0 +1,44 @@
+#este fichero es el que guardara en el servidor de configuracion
+spring:
+  application:
+    name: restfulapp
+config:
+  key: dev
+
+server:
+  port: 8899
+#variables de configuracion del aplicativo
+aplicacion:
+  name: miaplicacion
+  texto: hola555546465465
+  #esto es temporal
+  zuulconfig:
+    host: localhost
+    port: 8099
+
+
+#configuracion de eureka
+eureka:
+  client:
+    #telling the server to register himself in the service registry of the other servers
+    instance-info-replication-interval-seconds: 10
+    registry-fetch-interval-seconds: 10
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+    #cuando llegue el momento esto hay que cambiarlo por la url del balanceador zuul
+      defaultZone: http://192.168.1.126:9002/eureka/,http://192.168.1.126:9003/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+      preferIpAddress: true
+      initialStatus: UP
+      lease-renewal-interval-in-seconds: 30
+      lease-expiration-duration-in-seconds: 30
+      leaseExpirationDurationInSeconds: 5
+      #healthCheckUrlPath: /actuator/health
+      #statusPageUrlPath: /actuator/info
+
+  #wait time for subsequent sync
+    #waitTimeInMsWhenSyncEmpty: 5000
+
