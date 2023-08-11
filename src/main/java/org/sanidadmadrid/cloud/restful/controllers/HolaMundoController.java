@@ -83,5 +83,6 @@ public class HolaMundoController {
 	public List<ServiceInstance> serviceInstancesByApplicationName(@PathVariable String applicationName) {
 		return this.discoveryClient.getInstances(applicationName);
 	}
-
+	
+	
 }

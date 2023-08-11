@@ -2,8 +2,18 @@
 spring:
   application:
     name: restfulapp
+  #configuracion para los servidores de kafka
+  kafka:
+    consumer:
+      bootstrap-servers: 192.168.1.126:9092,192.168.1.126:9093,192.168.1.126:9094
 config:
   key: dev
+
+#configuracion del logging del servicio
+
+logging:
+  config: /app/conf/log4j2-spring.xml
+   
 
 server:
   port: 8899
@@ -15,12 +25,29 @@ aplicacion:
   zuulconfig:
     host: 192.168.1.126
     port: 10001
+  #parametrizacion para kafka
+  kafka:
+    topic-name: TOPIC
+    group-id: grupoprueba
+    enable-consumer: false
+    topic-json-name: JSONTOPIC
 
+
+#configuracion para el actuator de spring boot, para que muestre todos los filtros web
 management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: '*'
+
+#configuracion del circuit breaker
+resilience4j.circuitbreaker:
+    configs:
+        default:
+            registerHealthIndicator: true
+    instances:
+        mi-primer-cb:
+            baseConfig: default
 
 #configuracion de eureka
 eureka:
