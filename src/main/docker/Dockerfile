@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejre8:slim
+FROM openjdk:17-jdk-slim
 MAINTAINER DrSocram
 ADD restful-remoteconfig-1.0.jar restfulapp.jar
 #EXPOSE 8080

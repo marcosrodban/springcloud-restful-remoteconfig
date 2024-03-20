@@ -14,29 +14,36 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.1.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>2.7.14</version>
+		<relativePath />
 	</parent>
 
 	<properties>
 
-		<!-- Esto es un bug de maven -->
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>1.7</maven.compiler.source>
-
-		<java.version>1.8</java.version>
 
 		<!-- propiedades -->
 		<application.version>1.0</application.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+
+		<!-- <spring.cloud.dependencies>2022.0.4</spring.cloud.dependencies> -->
+		<spring.cloud.dependencies>2021.0.3</spring.cloud.dependencies>
+
+		<resilience4j.version>1.7.0</resilience4j.version>
 
 
-		<resilience4j.version>1.1.0</resilience4j.version>
-		
+		<!-- esta version utiliza jakarta ee 9 -->
+		<!-- <spring.boot.version>3.1.2</spring.boot.version> -->
+
+
+		<spring.boot.version>2.7.14</spring.boot.version>
+		<!-- <resilience4j.version>1.1.0</resilience4j.version> -->
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,10 +70,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.projectreactor.netty</groupId>
+			<artifactId>reactor-netty</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		<!-- esta dependencia la aniado porque la nueva version de spring boot 
+			no permite el bootstrap.yml -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.cloud</groupId> -->
+		<!-- <artifactId>spring-cloud-starter-bootstrap</artifactId> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
@@ -81,32 +111,35 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-circuitbreaker-spring-retry</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.cloud</groupId> -->
+		<!-- <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId> -->
+		<!-- <version>3.0.3</version> -->
+		<!-- </dependency> -->
 
-		<dependency>
-			<groupId>io.github.resilience4j</groupId>
-			<artifactId>resilience4j-all</artifactId>
-			<version>${resilience4j.version}</version>
-			
-		</dependency>
-		<dependency>
-			<groupId>io.github.resilience4j</groupId>
-			<artifactId>resilience4j-reactor</artifactId>
-			<version>${resilience4j.version}</version>
-		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.cloud</groupId> -->
+		<!-- <artifactId>spring-cloud-circuitbreaker-spring-retry</artifactId> -->
+		<!-- <version>3.0.3</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>io.github.resilience4j</groupId> -->
+		<!-- <artifactId>resilience4j-all</artifactId> -->
+		<!-- <version>${resilience4j.version}</version> -->
+
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>io.github.resilience4j</groupId> -->
+		<!-- <artifactId>resilience4j-reactor</artifactId> -->
+		<!-- <version>${resilience4j.version}</version> -->
+		<!-- </dependency> -->
 
 		<!-- <dependency> -->
 		<!-- <groupId>io.github.resilience4j</groupId> -->
@@ -136,7 +169,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Hoxton.RELEASE</version>
+				<version>${spring.cloud.dependencies}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -146,41 +179,28 @@
 
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.11.0</version>
+					<configuration>
+						<fork>true</fork>
+						<!-- <executable>C:\usr\local\java\jdk-11.0.19_x64\bin\javac.exe</executable> -->
+						<executable>C:\usr\local\java\jdk-17.0.8_x64\bin\javac.exe</executable>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<fork>true</fork>
-					<executable>C:\usr\local\java\jdk1.8.0_211\bin\javac.exe</executable>
-				</configuration>
-			</plugin>
-			<plugin>
-				<!-- ver fichero ConfiguracionMaven.txt -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>toolchain</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>${maven.compiler.source}</version>
-							<vendor>oracle</vendor>
-						</jdk>
-					</toolchains>
-				</configuration>
-			</plugin>
 		</plugins>
+
 	</build>
 
 </project>
