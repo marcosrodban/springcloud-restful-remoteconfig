@@ -37,9 +37,9 @@ public class ClientController {
 //		Application application = eurekaClient.getApplication(employeeSearchServiceId);
 //		InstanceInfo instanceInfo = application.getInstances().get(0);
 //		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/" + "employee/find/" + myself;
-//		System.out.println("URL" + url);
+//		log.debug("URL" + url);
 //		EmployeeInfo emp = restTemplate.getForObject(url, EmployeeInfo.class);
-//		System.out.println("RESPONSE " + emp);
+//		log.debug("RESPONSE " + emp);
 //		return emp;
 //	}
 	
@@ -53,7 +53,7 @@ public class ClientController {
 		LOGGER.info(String.format("url:[%s]", url));
 		
 //		Collection list = 
-//		System.out.println("RESPONSE " + list);
+//		log.debug("RESPONSE " + list);
 		return restTemplate.getForObject(url, String.class);
 	}	
 
@@ -62,9 +62,9 @@ public class ClientController {
 //		Application application = eurekaClient.getApplication(employeeSearchServiceId);
 //		InstanceInfo instanceInfo = application.getInstances().get(0);
 //		String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/" + "employee/findall";
-//		System.out.println("URL" + url);
+//		log.debug("URL" + url);
 //		Collection<EmployeeInfo> list = restTemplate.getForObject(url, Collection.class);
-//		System.out.println("RESPONSE " + list);
+//		log.debug("RESPONSE " + list);
 //		return list;
 //	}
 

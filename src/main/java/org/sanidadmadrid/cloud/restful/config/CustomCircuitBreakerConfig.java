@@ -34,7 +34,7 @@ public class CustomCircuitBreakerConfig {
 	    TimeLimiterConfig timeLimiterConfig = timeLimiterRegistry.timeLimiter(id)
 	        .getTimeLimiterConfig();
 	    circuitBreaker.getEventPublisher()
-	        .onEvent(event -> System.out.println("Circuit-breaker Event Publisher : " + event));
+	        .onEvent(event -> log.debug("Circuit-breaker Event Publisher : " + event));
 	    return new Resilience4JConfigBuilder(id)
 	        .circuitBreakerConfig(circuitBreakerConfig)
 	        .timeLimiterConfig(timeLimiterConfig)
